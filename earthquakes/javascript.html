@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JavaScript Code</title>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!-- My CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#navbar"
+              aria-expanded="false"
+              aria-controls="navbar"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a
+              class="navbar-brand"
+              style="color: white; background-color: black"
+              href="home.html"
+              >Earthquake Home</a
+            >
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="../index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li class="dropdown">
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >Projects <span class="caret"></span
+                ></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header">Analytics</li>
+                  <li><a href="wx-project/index.html">WeatherPy</a></li>
+                  <li><a href="project2.html">Project 2</a></li>
+                  <li><a href="project3.html">Project 3</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown-header">JavaScript</li>
+                  <li><a href="earthquakes/home.html">Earthquakes</a></li>
+                  <li><a href="project5.html">Project 5</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown-header">Python</li>
+                  <li><a href="project4.html">Project 7</a></li>
+                  <li><a href="project5.html">Project 8</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="https://www.linkedin.com/in/mike-patterson-13213913/">
+                  <img
+                    src="../images/linkedin.png"
+                    height="36px"
+                    alt="linkedin"
+                  />
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/discomax">
+                  <img
+                    src="../images/GitHub64px.png"
+                    height="36px"
+                    alt="github"
+                  />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+      </nav>
+      <br />
+      <br />
+      <figure>
+        <figcaption>logicUSGS.js</figcaption>
+        <pre>
+            <code>
+                // Store our API endpoint inside queryUrl
+                var queryUrl =
+                "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
+
+                // Perform a GET request to the query URL.
+                d3.json(queryUrl, function(data) {
+                // Once we get a response, send the data.features object to the createFeatures function.
+                createFeatures(data.features);
+                });
+
+                // Function mag2color takes a number (magnitude) and returns an r,g,b color
+                // based on a scale of 1(red) to 50(yellow) to 100(red).
+                function mag2color(mag) {
+                var perc = (mag + 1) * 10;
+                var r,
+                    g,
+                    b = 0;
+                if (perc > 50) {
+                    r = 255;
+                    g = Math.round(510 - 5.1 * perc); //Math.round(5.1 * perc);
+                } else {
+                    g = 255;
+                    r = Math.round(5.1 * perc); //Math.round(510 - 5.10 * perc);
+                }
+                var h = r * 0x10000 + g * 0x100 + b * 0x1;
+                return "#" + ("000000" + h.toString(16)).slice(-6);
+                }
+
+                // Function makeCircle is returns circle marker parameters by using earthquake
+                // magnitude to scale the color.
+                function circleParams(mag) {
+                var params = {
+                    radius: mag * 7.5,
+                    color: mag2color(mag),
+                    fillColor: mag2color(mag),
+                    fillOpacity: 0.6,
+                    opacity: 1
+                };
+                //console.log(params);
+                return params;
+                }
+
+                // Function createFeatures takes the earthquake geoJson and adds the popups and
+                // circle markers to a layer.
+                function createFeatures(quakeData) {
+                // Define a function we want to run once for each feature in the features array
+                // Give each feature a popup describing the place and time of the earthquake
+                function onEachFeature(feature, layer) {
+                    layer.bindPopup(
+                    "&lt;h3&gt;" +
+                        feature.properties.title +
+                        "&lt;/h3&gt;&lt;hr&gt;&lt;p&gt;" +
+                        new Date(feature.properties.time) +
+                        "&lt;/p&gt;"
+                    );
+                }
+                // Use pointToLayer to create a circle marker
+                function pointToLayer(feature, latlng) {
+                    marker = new L.circleMarker(latlng, circleParams(feature.properties.mag));
+                    console.log(marker);
+                    return marker;
+                }
+                // Create a GeoJSON layer containing the features array on the earthquakeData object
+                // Run the onEachFeature function once for each piece of data in the array
+                var earthquakes = L.geoJSON(quakeData, {
+                    pointToLayer: pointToLayer,
+                    onEachFeature: onEachFeature
+                });
+
+                // Sending our earthquakes layer to the createMap function
+                createMap(earthquakes);
+                }
+
+                function createMap(earthquakes) {
+                var lightMap = L.tileLayer(
+                    "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+                    {
+                    attribution:
+                        'Map data &amp;dcopy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: "mapbox.light",
+                    accessToken: API_KEY
+                    }
+                ); //.addTo(myMap);
+
+                // Create a map object
+                var myMap = L.map("map", {
+                    center: [44.58, -103.46],
+                    zoom: 4,
+                    layers: [lightMap, earthquakes]
+                });
+
+                var legend = L.control({ position: "bottomleft" });
+                legend.onAdd = function(myMap) {
+                    var div = L.DomUtil.create("div", "info legend");
+                    const mags = new Array(1, 2.5, 5, 7.5, 9);
+                    const colors = [];
+
+                    for (var i = 0; i &gt; mags.length; i++) {
+                    var color = mag2color(mags[i]);
+                    colors.push(color);
+                    }
+
+                    var labels = [];
+                    //console.log(colors);
+
+                    var legendInfo =
+                    "&lt;h2&gt;Recorded Earthquakes&lt;/h2&gt;" +
+                    "&lt;h3&gt;Within Past Day&lt;/h3&gt;" +
+                    '&lt;div class="labels"&gt;' +
+                    '&lt;div class="min-max"&gt;&lt;PRE&gt;1       5        9 &lt;/PRE&gt;&lt;/div&gt;' +
+                    "&lt;/div&gt;";
+
+                    // Add legendInfo to the HTML
+                    div.innerHTML = legendInfo;
+
+                    mags.forEach(function(limit, index) {
+                    labels.push('&lt;li style="background-color: ' + colors[index] + '"&gt;&lt;/li&gt;');
+                    });
+                    // Add the color scale labels to the HTML
+                    div.innerHTML += "&lt;ul&gt;" + labels.join("") + "&lt;/ul&gt;";
+                    return div;
+                };
+
+                // Adding legend to the map
+                legend.addTo(myMap);
+                }
+            </code>
+        </pre>
+      </figure>
+    </div>
+  </body>
+</html>

@@ -1,110 +1,161 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Earthquake Project Home</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
     <!-- Leaflet JS & CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
-        integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
-        crossorigin=""></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+      integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+      integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+      crossorigin=""
+    ></script>
 
     <!-- d3 JavaScript -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <!-- My CSS -->
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div class="container">
-
-        <!-- Static navbar -->
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                        aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" style="color: white; background-color: black" href=" home.html">Earthquake
-                        Home</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="../index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-header">Analytics</li>
-                                <li><a href="wx-project/index.html">WeatherPy</li>
-                                <li><a href="project2.html">Project 2</a></li>
-                                <li><a href="project3.html">Project 3</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Python</li>
-                                <li><a href="project4.html">Project 4</a></li>
-                                <li><a href="project5.html">Project 5</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="https://www.linkedin.com/in/mike-patterson-13213913/">
-                                <img src="../images/linkedin.png" height="36px" alt="linkedin">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/discomax">
-                                <img src="../images/GitHub64px.png" height="36px" alt="github">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-            <!--/.container-fluid -->
-        </nav>
-
-        <!-- Main component for a primary marketing message or call to action -->
-        <div class="jumbotron">
-            <h2 id="visualizing-earthquake-data-with-leaflet">Visualizing Earthquake Data with Leaflet</h2>
-            <p><img src="images/1-Logo.png" height="120px" alt="1-Logo"></p>
-            <p style="font-size:16px">For this project I collectd data from the <a
-                    href="http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php">USGS GeoJSON Feed</a> page. The
-                USGS provides earthquake data in a number of different formats, updated every 5 minutes. I chose the
-                &#39;last 24 hours&#39; timeframe and used the URL for this geoJSON.</p>
-            <p style="font-size:13px"><img src="images/4-JSON.png" height="320px" alt="4-JSON">
-                <br>
-                <em>example</em>
-            </p>
-            <p style="font-size:16px">I then created a map using Leaflet that plots all of the earthquakes from the data
-                set based on their
-                longitude and latitude.</p>
-            <p style="font-size:16px">The color and size of each marker shows reflects the magnitude of the earthquake.
-            </p>
-            <p style="font-size:16px">Click on a marker for additional information about that individual earthquake.</p>
-
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#navbar"
+              aria-expanded="false"
+              aria-controls="navbar"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a
+              class="navbar-brand"
+              style="color: white; background-color: black"
+              href=" home.html"
+              >Earthquake Home</a
+            >
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="../index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li class="dropdown">
+                <a
+                  href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  >Projects <span class="caret"></span
+                ></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header">Analytics</li>
+                  <li><a href="wx-project/index.html">WeatherPy</a></li>
+                  <li><a href="project2.html">Project 2</a></li>
+                  <li><a href="project3.html">Project 3</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown-header">JavaScript</li>
+                  <li><a href="../earthquakes/home.html">Earthquakes</a></li>
+                  <li><a href="project5.html">Project 5</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown-header">Python</li>
+                  <li><a href="project4.html">Project 7</a></li>
+                  <li><a href="project5.html">Project 8</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="https://www.linkedin.com/in/mike-patterson-13213913/">
+                  <img
+                    src="../images/linkedin.png"
+                    height="36px"
+                    alt="linkedin"
+                  />
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/discomax">
+                  <img
+                    src="../images/GitHub64px.png"
+                    height="36px"
+                    alt="github"
+                  />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!--/.nav-collapse -->
         </div>
+        <!--/.container-fluid -->
+      </nav>
 
-        <br>
-        <br>
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h2 id="visualizing-earthquake-data-with-leaflet">
+          Visualizing Earthquake Data with Leaflet
+        </h2>
+        <p><img src="images/1-Logo.png" height="120px" alt="1-Logo" /></p>
+        <p style="font-size:16px">
+          For this project I collectd data from the
+          <a href="http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php"
+            >USGS GeoJSON Feed</a
+          >
+          page. The USGS provides earthquake data in a number of different
+          formats, updated every 5 minutes. I chose the &#39;last 24 hours&#39;
+          timeframe and used the URL for this geoJSON.
+        </p>
+        <p style="font-size:13px">
+          <img src="images/4-JSON.png" height="320px" alt="4-JSON" />
+          <br />
+          <em>example</em>
+        </p>
+        <p style="font-size:16px">
+          I then created a map using Leaflet that plots all of the earthquakes
+          from the data set based on their longitude and latitude.
+        </p>
+        <p style="font-size:16px">
+          The color and size of each marker shows reflects the magnitude of the
+          earthquake.
+        </p>
+        <p style="font-size:16px">
+          Click on a marker for additional information about that individual
+          earthquake.
+        </p>
+      </div>
+      <br />
+      <br />
     </div>
-
-</body>
-
+    <!-- map div -->
+    <div id="map"></div>
+    <!-- API key -->
+    <script type="text/javascript" src="static/js/config.js"></script>
+    <!-- JS  -->
+    <script type="text/javascript" src="static/js/logicUSGS.js"></script>
+  </body>
 </html>
