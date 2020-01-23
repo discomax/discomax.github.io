@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Restaurant JavaScript Code</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!-- My CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" style="color: white; background-color: black" href="home.html">Earthquake
+                        Home</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Analytics</li>
+                                <li><a href="../wx-project/index.html">WeatherPy</a></li>
+                                <li><a href="project2.html">Project 2</a></li>
+                                <li><a href="project3.html">Project 3</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">JavaScript</li>
+                                <li><a href="../earthquakes/home.html">Earthquakes</a></li>
+                                <li><a href="../restaurants/home.html">Restaurants</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Python</li>
+                                <li><a href="project4.html">Project 7</a></li>
+                                <li><a href="project5.html">Project 8</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="https://www.linkedin.com/in/mike-patterson-13213913/">
+                                <img src="../images/linkedin.png" height="36px" alt="linkedin" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/discomax">
+                                <img src="../images/GitHub64px.png" height="36px" alt="github" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </nav>
+        <br />
+        <br />
+        <figure>
+            <figcaption>logicUSGS.js</figcaption>
+            <pre>
+            <code>
+                const MAP_KEY = "pk.eyJ1IjoiZGlzY29tYXgiLCJhIjoiY2p0bGtwdjdvMGN0ZzRhcGVoaHBrdGRvNiJ9.1FRcT1k-Vdo3ZLHVSp28Fg";
+                // Creating map object
+
+                // Arrays to store created restMarkers
+                var allRestaurants = [];
+                var greenRestaurants = [];
+                var violetRestaurants = []; 
+                var yellowRestaurants = [];
+                var redRestaurants = [];
+
+                d3.json("final.json", function(data) {
+                
+                var restaurants = data;
+                // console.log(restaurants);
+                
+                // Create custom markers
+                var greenMarker = new L.Icon({
+                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                    });
+
+                    var violetMarker = new L.Icon({
+                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                    }); 
+
+                    var yellowMarker = new L.Icon({
+                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                    }); 
+
+                    var redMarker = new L.Icon({
+                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                    }); 
+                // Function to determine the custom marker color based on price
+                function chooseMarker(price) {
+                    switch(price) {
+                        case "$$$$": return greenMarker;
+                        case "$$$": return violetMarker;
+                        case "$$": return yellowMarker;
+                        case "$": return redMarker;
+                    }
+                }
+
+                // Frunction popupString creates string for a restaurants pop-up.
+                function popupString(restaurant) {
+                    var string = "&lt;h2&gt;" + restaurant.name + "&lt;/h2&gt;&lt;hr&gt; \
+                        &lt;p&gt;&lt;font size='3'&gt; \
+                        Category: " + restaurant.type + "&lt;br&gt; \
+                        Prince: " + restaurant.price + "&lt;br&gt; \
+                        Rating: " + restaurant.rating + "&lt;br&gt;&lt;br&gt; \
+                        Address: &lt;br&gt; \
+                        " + restaurant.address + "&lt;br&gt;" + restaurant.city + " " + restaurant.zip + "\
+                        &lt;/font&gt;&lt;/p&gt;";
+
+                    return string;
+                }
+                
+                // Function chooseArray uses the price to determine what color array
+                // To push the marker to the correspondingn array.
+                function chooseArray(price, marker) {
+                    switch(price) {
+                        case "$$$$": greenRestaurants.push(marker);
+                        case "$$$": violetRestaurants.push(marker);
+                        case "$$": yellowRestaurants.push(marker);
+                        case "$": redRestaurants.push(marker);
+                    }
+                }
+                
+                for (var i=0; i &lt; restaurants.length; i++) {
+                // Make a variables to hold info about each restaurant for use in markers.
+                    var rName = restaurants[i].name;
+                    var rLocation = [restaurants[i].lat, restaurants[i].long];
+                    var rPrice = restaurants[i].price;
+                    // Create the restaurant's marker using the coordinates using loc,
+                    // Bind a pop-up with restaurant info & push it to the allRestaurants array.
+                    var restaurantMarker = L.marker(rLocation, {icon: chooseMarker(rPrice), title: rName, riseOnHover: true})
+                        .bindPopup(popupString(restaurants[i]));
+                    // Push marker to the allRestaurants array.
+                    allRestaurants.push(restaurantMarker);
+                    // Use chooseArray to push marker to corresponding color array.
+                    chooseArray(rPrice, restaurantMarker);
+                    
+                }
+
+                // Create variables for the base layers.
+                var streetMap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+                    attribution: "Map data &copy; &lt;a href=\"https://www.openstreetmap.org/\"&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=\"https://creativecommons.org/licenses/by-sa/2.0/\"&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=\"https://www.mapbox.com/\"&gt;Mapbox&lt;/a&gt;",
+                    maxZoom: 18,
+                    id: "mapbox.streets",
+                    accessToken: MAP_KEY
+                });
+
+                var darkMap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+                    attribution: "Map data &copy; &lt;a href=\"https://www.openstreetmap.org/\"&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=\"https://creativecommons.org/licenses/by-sa/2.0/\"&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=\"https://www.mapbox.com/\"&gt;Mapbox&lt;/a&gt;",
+                    maxZoom: 18,
+                    id: "mapbox.dark",
+                    accessToken: MAP_KEY
+                });
+                // Use the marker arrays to create layers.
+                var allLayer = L.layerGroup(allRestaurants);
+                var greenLayer = L.layerGroup(greenRestaurants);
+                var violetLayer = L.layerGroup(violetRestaurants);
+                var yellowLayer = L.layerGroup(yellowRestaurants);
+                var redLayer = L.layerGroup(redRestaurants);
+                
+                // Create a baseMaps object
+                var baseMaps = {
+                    "Street Map": streetMap,
+                    "Dark Map": darkMap
+                };
+
+                // Create an overlay object
+                var overlayMaps = {
+                    "All Restaurants": allLayer,
+                    "Price: $": redLayer,
+                    "Price: $$": yellowLayer,
+                    "Price: $$$": violetLayer,
+                    "Price: $$$$": greenLayer
+                };
+
+                //Create the map with Charlotte's lat and long.
+                var charlotteLat, charlotteLong;
+                charlotteLat = 35.227085;
+                charlotteLong = -80.843124;
+
+                var restaurantMap = L.map("map", {
+                    center: [charlotteLat, charlotteLong],
+                    zoom: 10.25,
+                    layers: [streetMap, allLayer]
+                });
+
+                // Create the layer control and add to map
+                L.control.layers(baseMaps, overlayMaps, {
+                        collapsed: false
+                    }).addTo(restaurantMap);
+                });
+
+            </code>
+        </pre>
+        </figure>
+    </div>
+</body>
+
+</html>

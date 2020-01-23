@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Michael Patterson</title>
-  <!-- Latest compiled and minified CSS -->
+  <title>Restaurants Project Home</title>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+  <!-- Leaflet JS & CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+    crossorigin=""></script>
+
+  <!-- d3 JavaScript -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+
+  <!-- My CSS -->
+  <link rel="stylesheet" type="text/css" href="static/css/style.css" />
 </head>
 
 <body>
@@ -24,7 +37,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="images/profile.png">My Portfolio</a>
+          <a class="navbar-brand" href="images/portrait.jpeg">My Portfolio</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -75,70 +88,73 @@
 
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <img src="images/equatorsign.png" height="240px" alt="Michael Patterson" />
-      <h2>Weather Py</h2>
+      <h2 id="visualizing-earthquake-data-with-leaflet">
+        Interactive Restaurant Map
+      </h2>
+      <p><img src="images/Yelp_Logo.svg" height="120px" alt="1-Logo" /></p>
       <p style="font-size:16px">
-        In this project, I used Python requests, APIs, JSON traversals to
-        answer a fundamental question: &quot;What&#39;s the weather like as we
-        approach the equator?&quot; Does the data support the idea that it
-        simply gets hotter?
+        For this project I collectd Charlotte restaurant data from the
+        <a href="https://api.yelp.com/v3/businesses/search">Yelp API</a>
+        page. The data included address, category, latitude, longitude and price range
+        JSON file.
+        <pre><code>
+          [
+            {
+                "id":"yrUDeng1LrDvgyyjI5GiHA",
+                "name":"Pho Quynh",
+                "type":"Vietnamese",
+                "rating":4.5,
+                "lat":35.211296081543,
+                "long":-80.7613372802734,
+                "price":"$$",
+                "address":"4900 Central Ave",
+                "city":"Charlotte",
+                "zip":28205
+            },
+            {
+                "id":"PqcOSnCsJTT9Yd2xWKIMWw",
+                "name":"La Shish Kabob",
+                "type":"Middle Eastern",
+                "rating":4.5,
+                "lat":35.2032998,
+                "long":-80.7604348,
+                "price":"$",
+                "address":"3117-A N Sharon Amity",
+                "city":"Charlotte",
+                "zip":28205
+            },
+        </code></pre>
+        <em>JSON ex.</em>
       </p>
       <p style="font-size:16px">
-        In this project, I created a Python script to visualize the weather of
-        500+ random cities across the world with varyious distances from the
-        equator. I obtained the cities and weather with the
-        <a href="https://pypi.python.org/pypi/citipy">citipy Python library</a>, the
-        <a href="https://openweathermap.org/api">OpenWeatherMap API</a>.
-      </p>
-      <p style="font-size:16px">Comparisons Used:</p>
-      <ul>
-        <li>Temperature (F) vs. Latitude</li>
-        <li>Humidity (%) vs. Latitude</li>
-        <li>Cloudiness (%) vs. Latitude</li>
-        <li>Wind Speed (mph) vs. Latitude</li>
-      </ul>
-      <p style="font-size:16px">
-        <a href="data.html">Click to See Data</a>
+        This data was then used by a team of 3 to analyze the relationship between location,
+        price and cuisien type. The entire repositry can be found
+        <a href="https://github.com/discomax/Visualize_Me_Capitain">HERE(GitHub)</a><br>
+        My main task was to develop an interactive map using JavaScript and Leaflet.
       </p>
       <p style="font-size:16px">
-        <a href="weatherpy.html">Click to See Notebook</a>
-      </p>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <img class="img-responsive" src="images/Lat v Temp.png" />
-        </div>
-        <div class="col-md-6">
-          <img class="img-responsive" src="images/Lat v Humid.png" />
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <img class="img-responsive" src="images/Lat v Cloud.png" />
-        </div>
-        <div class="col-md-6">
-          <img class="img-responsive" src="images/Lat v Wind.png" />
-        </div>
-      </div>
+        The the full page map found
+        <a href="map.html">HERE</a>
+        The JavaScript code found
+        <a href="javascript.html">HERE</a>
+        .
+        <p style="font-size:16px">
+          Click on a marker for additional information about that individual
+          restaurant.
+        </p>
     </div>
     <br />
     <br />
   </div>
-  <!-- /container -->
-
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+  <div class="container"></div>
+  <h3>Charlotte Restaurants</h3>
+  <!-- map div -->
+  <div id="map"></div>
+  <!-- API key -->
+  <script type="text/javascript" src="static/js/config.js"></script>
+  <!-- JS  -->
+  <script type="text/javascript" src="static/js/logic_map.js"></script>
+  </div>
 </body>
 
 </html>
