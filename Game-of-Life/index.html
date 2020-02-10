@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Conway's Game of Life</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+</head>
+
+<body>
+  <div class="container">
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+            aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="images/profile.png">My Portfolio</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false">Projects <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">Analytics</li>
+                <li><a href="wx-project/index.html">WeatherPy</a></li>
+                <li><a href="project2.html">Project 2</a></li>
+                <li><a href="project3.html">Project 3</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">JavaScript</li>
+                <li><a href="../earthquakes/home.html">Earthquakes</a></li>
+                <li><a href="../restaurants/home.html">Restaurants</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Python</li>
+                <li><a href="project4.html">Project 7</a></li>
+                <li><a href="project5.html">Project 8</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="https://www.linkedin.com/in/mike-patterson-13213913/" title="my LinkedIn page">
+                <img src="../images/linkedin.png" height="36px" alt="linkedin" />
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/discomax" title="my GitHub repositories">
+                <img src="../images/GitHub64px.png" height="36px" alt="github" />
+              </a>
+            </li>
+            <li>
+              <a href="https://public.tableau.com/profile/mike.p3377#!/" title="my Tableau Public">
+                <img src="../images/tableau.png" height="36px" alt="tableau" />
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+      <!--/.container-fluid -->
+    </nav>
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <h1 id="game_of_life">Game_of_Life</h1>
+      <p>The universe of the <em>Game of Life</em> is an infinite, two-dimensional <a
+          href="https://en.wikipedia.org/wiki/Orthogonality" title="Orthogonality">orthogonal</a> grid of square
+        <em>cells</em>, each of which is in one of two possible states, <em>alive</em> or <em>dead</em>, (or
+        <em>populated</em> and <em>unpopulated</em>, respectively). Every cell interacts with its eight <em><a
+            href="https://en.wikipedia.org/wiki/Moore_neighborhood" title="Moore neighborhood">neighbours</a></em>,
+        which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the
+        following transitions occur:</p>
+      <ol>
+        <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
+        <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+        <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
+        <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+      </ol>
+      <p>Source: <a href="https://en.wikipedia.org/wiki/Conway&#39;s_Game_of_Life">Wikipedia</a></p>
+      <p><img src="cross.gif" alt="example"></p>
+      <br />
+      <br />
+      <figure>
+        <figcaption>life.py</figcaption>
+        <pre>
+        <code>
+          # Conway's Game of Life Program
+          # A system of cells that liv on a grid,
+          # where they live and die, and also evolve
+          # based on rules that dictate their world.
+          
+          import numpy as np
+          from os import name, system
+          from time import sleep
+          from start_state import toad, cross, three_lines, solid_square
+          
+          
+          def dead_state(height=5, width=5):
+              # Create a board of declared width and height
+              # with all cells initialized to dead.
+              state = np.zeros((height, width), dtype=int)
+              return state
+          
+          
+          def random_state(height=5, width=5):
+              # state = dead_state(width, height)
+              s = (height, width)
+              state = np.random.sample(size=s)
+              for row in state:
+                  for i, num in enumerate(row):
+                      if num >= 0.5:
+                          num = 0
+                      else:
+                          num = 1
+                      row[i] = num
+              return state.astype(int)
+          
+          
+          # determines if a singles cell's 8 neighbors are 'live'
+          def live_neighbors(state):
+              live_count = 0
+              cell = state[1][1]
+              for row in range(3):
+                  for col in range(3):
+                      if state[row][col] == 1:
+                          live_count += 1
+              if cell == 1:
+                  return live_count - 1
+              else:
+                  return live_count
+          
+          
+          # wrap a board state in a 'circle' to
+          # elimate errors when finding edge cell neigbors.
+          # only accepts numpy.ndarrays
+          def zero_wrap(state):
+              state = state.tolist()
+              new_row = [0 for col in range(len(state[0]) + 2)]
+              for row in state:
+                  row.insert(0, 0)
+                  row.append(0)
+              state.insert(0, new_row)
+              state.append(new_row)
+              return np.array(state)
+          
+          
+          def new_cell_state(cell_neighbors):
+              cell = cell_neighbors[1][1]
+              nbrs_on = live_neighbors(cell_neighbors)
+              if cell == 1 and (nbrs_on == 2 or nbrs_on == 3):
+                  new_cell = 1
+              elif cell == 0 and nbrs_on == 3:
+                  new_cell = 1
+              else:
+                  new_cell = 0
+              return new_cell
+          
+          
+          def get_next_state(current_state):
+              cs_rows, cs_cols = np.shape(current_state)
+              next_state = dead_state(cs_rows, cs_cols)
+              wrapped_state = zero_wrap((current_state))
+              ws_rows, ws_cols = np.shape(wrapped_state)
+              for row in range(1, ws_rows - 1):
+                  for col in range(1, ws_cols - 1):
+                      cell_neighbors = wrapped_state[row - 1 : row + 2, col - 1 : col + 2]
+                      new_cell = new_cell_state(cell_neighbors)
+                      next_state[row - 1][col - 1] = new_cell
+              return np.array(next_state)
+          
+          
+          # take a grid of cell states & render a board with ascii char
+          def render(state, on_str="#", off_str=" "):
+              border = "-" * len(state[0])
+              print("-" + border + "-")
+              for row in state:
+                  row = [on_str if n == 1 else off_str for n in row]
+                  row = "".join(str(n) for n in row)
+                  print("|" + row + "|")
+              print("-" + border + "-")
+              return
+          
+          
+          # board_state = random_state(height, width)
+          # init_state = np.array(toad)
+          # init_state = np.array(three_lines)
+          init_state = np.array(cross)
+          # init_state = np.array(solid_square)
+          system("cls" if name == "nt" else "clear")
+          render(init_state)
+          sleep(2)
+          system("cls" if name == "nt" else "clear")
+          state = get_next_state(init_state)
+          next_state = get_next_state(state)
+          while not np.array_equal(next_state, state):
+              system("cls" if name == "nt" else "clear")
+              render(state)
+              sleep(0.1)
+              state = get_next_state(state)
+              next_state = get_next_state(state)
+        </code>
+    </pre>
+      </figure>
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">
+    © 2019 Copyright:
+    <a href="mailto:maggie.mpatterson73@gmail.com"> Michael Patterson</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+</html>
