@@ -1,0 +1,14 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+object {
+  border: 1px solid black;
+  width: 100%;
+  display: block;
+}
+
+.output {
+  background: #eee;
+}

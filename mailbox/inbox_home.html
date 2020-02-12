@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Mbox Challenge</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+            aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="images/profile.png">My Portfolio</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false">Projects <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">Analytics</li>
+                <li><a href="../wx-project/index.html">WeatherPy</a></li>
+                <li><a href="project2.html">Project 2</a></li>
+                <li><a href="project3.html">Project 3</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">JavaScript</li>
+                <li><a href="../earthquakes/home.html">Earthquakes</a></li>
+                <li><a href="../restaurants/home.html">Restaurants</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Random Python</li>
+                <li><a href="../Game-of-Life/index.html">Conway's Game of Life</a></li>
+                <li><a href="../mailbox/mailbox.html">Inbox Challenge</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="https://www.linkedin.com/in/mike-patterson-13213913/" title="my LinkedIn page">
+                <img src="../images/linkedin.png" height="36px" alt="linkedin" />
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/discomax" title="my GitHub repositories">
+                <img src="../images/GitHub64px.png" height="36px" alt="github" />
+              </a>
+            </li>
+            <li>
+              <a href="https://public.tableau.com/profile/mike.p3377#!/" title="my Tableau Public">
+                <img src="../images/tableau.png" height="36px" alt="tableau" />
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+      <!--/.container-fluid -->
+    </nav>
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+
+      <a href="https://all-inbox.com/">
+        <img src="https://all-inbox.com/wp-content/uploads/2019/09/aib-logo.png" height="140px" alt="All Inbox"
+          id="logo">
+      </a>
+      <h2 id="All Inbox Challenge">Mbox Challenge</h2>
+      <p style="font-size:16px">This is my <a href="mbox_code.html">python code submission</a> for a competition hosted
+        by All Inbox Inc. A
+        cash award was given to the winner.
+        It was determined late in the competition that that I was just outside of the elegibility window. I had finished
+        my bootcamp program one month too early. Never the less, they were impressed with my submission. Especially
+        since I had been enrolled in the data analytics bootcamp and not the coding/programming offering.</p>
+      <p style="font-size:16px">This script reads an email mbox file filled with 'singlepart' and 'multipart/mixed'
+        email
+        messages with a content type of text/plain. It takes the mbox file and genrates anoutner mbox
+        file with all the mbox files in the same order, but with the lines of each individual message
+        body printed in reverse order.</p>
+      <p style="font-size:16px">This tool accepts text files as well as mbox files. </p>
+      <p style="font-size:16px">This script requires <code>mailbox</code> be installed within the Python
+        environment you are running the script in.</p>
+      <hr>
+      <h2 id="the-challenge">The Challenge</h2>
+      <p style="font-size:16px">All Inbox, LLC does lots of formatting, templating, and automation of digital media,
+        content, and marketing.
+        One of those mediums is email. All Inbox sends lots of emails. Millions of them. We need to reformat this email
+        inbox file (called an mbox). Can you help us?</p>
+      <p style="font-size:16px">You will be given an email mbox file filled with single-part email messages with a
+        content type of text/plain.
+        Your goal is to take this mbox file with your script and generate another mbox file with all the email messages.
+        The new mbox file will have the emails in the same order, but with the lines of each individual message body
+        printed in reverse order.</p>
+      <p style="font-size:16px">The email headers and properly delimited email signatures remain unchanged.</p>
+      <p style="font-size:16px">You are given a sample input and output, but we will judge your code on a larger set of
+        inputs. You are
+        encouraged to do your research to determine the official formatting for an “mbox file” and all of the other
+        terms used here.</p>
+
+      <br />
+      <br />
+    </div>
+    <!-- /container -->
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h3>INPUT - Original Mbox File</h3>
+        <object data="assets/mbox.txt" title="Original mbox.full" width="500" height="500"></object>
+      </div>
+      <div class="col-sm-6">
+        <h3>OUTPUT - Revised Mbox File</h3>
+        <object data="assets/revised_mbox.txt" title="revised_mbox.full" width="500" height="500"></object>
+      </div>
+    </div>
+  </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">
+    © 2019 Copyright:
+    <a href="mailto:maggie.mpatterson73@gmail.com"> Michael Patterson</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+</html>

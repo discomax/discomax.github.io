@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mbox Python Code</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!-- My CSS -->
+    <!--<link rel="stylesheet" type="text/css" href="static/css/style.css" /> -->
+</head>
+
+<body>
+    <div class="container">
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" style="color: white; background-color: black" href="inbox_home.html">Mbox
+                        Challenge Home</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Analytics</li>
+                                <li><a href="../wx-project/index.html">WeatherPy</a></li>
+                                <li><a href="project2.html">Project 2</a></li>
+                                <li><a href="project3.html">Project 3</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">JavaScript</li>
+                                <li><a href="../earthquakes/home.html">Earthquakes</a></li>
+                                <li><a href="../restaurants/home.html">Restaurants</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Random Python</li>
+                                <li><a href="../Game-of-Life/index.html">Conway's Game of Life</a></li>
+                                <li><a href="../mailbox/inbox_home.html">Inbox Challenge</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="https://www.linkedin.com/in/mike-patterson-13213913/" title="my LinkedIn page">
+                                <img src="../images/linkedin.png" height="36px" alt="linkedin" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/discomax" title="my GitHub repositories">
+                                <img src="../images/GitHub64px.png" height="36px" alt="github" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://public.tableau.com/profile/mike.p3377#!/" title="my Tableau Public">
+                                <img src="../images/tableau.png" height="36px" alt="tableau" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </nav>
+        <br />
+        <br />
+        <figure>
+            <figcaption>mbox_challenge.py</figcaption>
+            <pre>
+            <code>
+                from pathlib import Path
+                import mailbox as mb
+                from email import message
+
+
+                def pop_signature(lines, delim='-- '):
+                    '''Splits content into body and signature
+
+                    Args:
+                        lines (list) --  a list of strings from email's payload.
+                        delim (str) -- start of email's signature. (default '-- ')
+
+                    Returns:
+                        new_lines (list) -- strings of the message body.
+                        sig_list (list) -- strings of the message signature.
+                    '''
+                    new_lines = lines
+                    sig_list = []
+                    if delim in lines:
+                        new_lines = lines[:lines.index(delim)]
+                        sig_list = lines[lines.index(delim):]
+                    return new_lines, sig_list
+
+
+                def reverse_payload(msg):
+                    '''
+                    Returns a singlepart email's content in reversed order.
+
+                    This will take the individual lines of a message's 
+                    content string (payload) and reorder them last to first. 
+                    Any signature will remain at the end of the reordered string.
+
+                    Args:
+                        msg (email.Message) -- a singlepart email Message.
+
+                    Returns:
+                        reversed_payload(str) -- message content in reverse order.
+                    '''
+                    payload = msg.get_payload()
+                    lines, signature = pop_signature(payload.splitlines())
+                    reversed_lines = lines[::-1]
+                    reversed_lines.extend(signature)
+                    reversed_payload = "\n".join(reversed_lines)
+                    content_type = msg.get('Content-Type')
+                    encoding = msg.get('Content-Transfer-Encoding')
+                    if 'Content-Transfer-Encoding' in msg:
+                        if '8bit' in encoding.lower():
+                            reversed_payload = reversed_payload.encode("utf-8")
+                        else:
+                            # TODO: handle other encodings (i.e. base64, Binary, x-token)
+                            pass
+                    return reversed_payload
+
+
+                def process_multipart(msg, payload=[]):
+                    '''
+                    Reverse the messages singlepart content in the payload.
+
+                    Assuming the msg argument is a multipart/mixed message
+                    containing only a singlepart message in it's payload,
+                    this will reverse the payload of that singlepart message
+                    and reinsert it in the multipart/mixed message's payload.
+
+                    Args:
+                        msg (email.Message): a multipart email Message object
+                        payload (list): list of messages (default [])
+
+                    Returns: 
+                        msg (email.Message): object with the payload reversed per the discription
+
+                    TODO: add recursion to process other types of multipart
+                    messages.
+                    '''
+                    content = msg.get_payload()
+                    sub_msg = content[0]
+                    sub_msg.set_payload(reverse_payload(sub_msg))
+                    msg.set_payload(payload)
+                    msg.attach(sub_msg)
+                    return msg
+
+
+                def mbox_challenge(infile, outfile):
+                    '''
+                    Format emails from mbox file, write to new mbox file
+
+                    Take each email message in a in an mbox formated mailbox and
+                    reverse the order of the lines of text in the message body
+                    from last to first. Create a new mbox formatted mailbox and
+                    save it to a new file.
+
+                    Args:
+                        infile (.full): file containing email mailbox
+                        outfile (.full): new file for saving mailbox w/ formatted messages
+
+                    Raises:
+                        Error: problem reading, formatting or writing the mbox
+                    '''
+                    try:
+                        mbox = mb.mbox(infile)
+                        mbox.lock()
+                        revised_mbox = mb.mbox(outfile)
+                        for Message in mbox:
+                            if Message.is_multipart():
+                                NewMessage = process_multipart(Message)
+                                revised_mbox.add(NewMessage)
+                            else:
+                                msg_content = reverse_payload(Message)    
+                                Message.set_payload(msg_content)
+                                revised_mbox.add(Message)
+                    except mb.Error:
+                        print('An error occurred. Please check the file contents')
+                    finally:
+                        revised_mbox.close()
+                        mbox.unlock()
+
+
+                if __name__ == "__main__":
+                    filename= 'data/mbox.full'
+                    new_filename = 'data/revised_mbox.full'
+                    try:
+                        with open(filename):
+                            mbox_challenge(filename, new_filename)
+                    except IOError as e:
+                        print(e)
+
+            </code>
+            </pre>
+        </figure>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">
+        © 2019 Copyright:
+        <a href="mailto:maggie.mpatterson73@gmail.com"> Michael Patterson</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+</html>
