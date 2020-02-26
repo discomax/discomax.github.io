@@ -5,10 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Mbox Challenge</title>
+  <title>Rideshare Analysis</title>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -72,62 +72,45 @@
       </div>
       <!--/.container-fluid -->
     </nav>
+
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron">
-
-      <a href="https://all-inbox.com/">
-        <img src="https://all-inbox.com/wp-content/uploads/2019/09/aib-logo.png" height="140px" alt="All Inbox"
-          id="logo">
-      </a>
-      <h2 id="All Inbox Challenge">Mbox Challenge</h2>
-      <p style="font-size:16px">This is my <a href="mbox_code.html">python code submission</a> for a competition hosted
-        by All Inbox Inc. A
-        cash award was given to the winner.
-        It was determined late in the competition that that I was just outside of the elegibility window. I had finished
-        my bootcamp program one month too early. Never the less, they were impressed with my submission. Especially
-        since I had been enrolled in the data analytics bootcamp and not the coding/programming offering.</p>
-      <p style="font-size:16px">This script reads an email mbox file filled with 'singlepart' and 'multipart/mixed'
-        email
-        messages with a content type of text/plain. It takes the mbox file and genrates anoutner mbox
-        file with all the mbox files in the same order, but with the lines of each individual message
-        body printed in reverse order.</p>
-      <p style="font-size:16px">This tool accepts text files as well as mbox files. </p>
-      <p style="font-size:16px">This script requires <code>mailbox</code> be installed within the Python
-        environment you are running the script in.</p>
-      <hr>
-      <h2 id="the-challenge">The Challenge</h2>
-      <p style="font-size:16px">All Inbox, LLC does lots of formatting, templating, and automation of digital media,
-        content, and marketing.
-        One of those mediums is email. All Inbox sends lots of emails. Millions of them. We need to reformat this email
-        inbox file (called an mbox). Can you help us?</p>
-      <p style="font-size:16px">You will be given an email mbox file filled with single-part email messages with a
-        content type of text/plain.
-        Your goal is to take this mbox file with your script and generate another mbox file with all the email messages.
-        The new mbox file will have the emails in the same order, but with the lines of each individual message body
-        printed in reverse order.</p>
-      <p style="font-size:16px">The email headers and properly delimited email signatures remain unchanged.</p>
-      <p style="font-size:16px">You are given a sample input and output, but we will judge your code on a larger set of
-        inputs. You are
-        encouraged to do your research to determine the official formatting for an “mbox file” and all of the other
-        terms used here.</p>
-
-      <br />
-      <br />
-    </div>
-    <!-- /container -->
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h3>INPUT - Original Mbox File</h3>
-        <object data="assets/mbox.txt" title="Original mbox.full" width="500" height="500"></object>
-      </div>
-      <div class="col-sm-6">
-        <h3>OUTPUT - Revised Mbox File</h3>
-        <object data="assets/revised_mbox.txt" title="revised_mbox.full" width="500" height="500"></object>
-      </div>
+      <h2 id="rideshare-analysis">Rideshare Analysis</h2>
+      <h3 id="scenario">Scenario</h3>
+      <p style="font-size:16px">The ride sharing bonanza continues! Seeing the success of notable players like Uber and
+        Lyft, you&#39;ve
+        decided
+        to join a fledgling ride sharing company of your own. In your latest capacity, you&#39;ll be acting as Chief
+        Data
+        Strategist for the company. In this role, you&#39;ll be expected to offer data-backed guidance on new
+        opportunities for market differentiation.</p>
+      <p><a href="notebook.html">See Notebook with Solution</a></p>
+      <p><img src="Images/Ride.png" alt="Ride"></p>
+      <p style="font-size:16px">You&#39;ve since been given access to the company&#39;s complete recordset of rides.
+        This contains information
+        about every active driver and historic ride, including details like city, driver count, individual fares, and
+        city
+        type.</p>
+      <p style="font-size:16px">Build a bubble chart that showcases the relationship between four key variables:</p>
+      <ul>
+        <li>Average Fare (\$) Per City</li>
+        <li>Total Number of Rides Per City</li>
+        <li>Total Number of Drivers Per City</li>
+        <li>City Type (Urban, Suburban, Rural)</li>
+      </ul>
+      <p style="font-size:16px">In addition, produce the following pie charts:</p>
+      <ul>
+        <li>% of Total Fares by City Type</li>
+        <li>% of Total Rides by City Type</li>
+        <li>% of Total Drivers by City Type</li>
+      </ul>
+      <p style="font-size:16px">NOTE: Use the company color scheme (Gold, Light Sky Blue, and Light Coral) in
+        producing your plot and pie
+        charts.</p>
     </div>
   </div>
+  <!-- /container -->
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
