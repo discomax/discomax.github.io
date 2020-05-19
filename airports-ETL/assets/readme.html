@@ -1,0 +1,10 @@
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><h1 id="us-airports-etl">US-Airports-ETL</h1>
+<h3 id="faa-airport-data">FAA Airport Data</h3>
+<p>For this project, I obtained data on all airports in the United States (including US territories) from the <a href="https://www.faa.gov/airports/airport_safety/airportdata_5010/#importers">Federal Aviation Administration</a>. The raw data came in .tsv files (tab separated) split into four categories: facilities, runways, schedules and remarks. </p>
+<p>Using the Python Pandas library, I cleansed and organized the data, by dropping columns, renaming columns and converting data within the columns. The new data is written to tsv files. The data descriptions written to a multi-tab exel file.</p>
+<p>Finally, I reformatted the dataframes into dictioaries and loaded them to a mongodb database named us_airports with four collections naturally labeled facilites, runways, schedules and remerks. </p>
+<p>This data can now be used for analysis or use in an application.</p>
+</body></html>
